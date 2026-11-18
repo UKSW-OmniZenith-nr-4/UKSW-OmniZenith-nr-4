@@ -50,6 +50,7 @@ public class StarField : MonoBehaviour
             float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
             float sizeDeg = Mathf.Lerp(minSizeDeg, maxSizeDeg, t);
             float brightness = Mathf.Lerp(0.3f, 1f, t);
+            float half = radius * Mathf.Tan(sizeDeg * Mathf.Deg2Rad * 0.5f);
 
             Vector3 center = dir * radius;
             int v = i * 4;
