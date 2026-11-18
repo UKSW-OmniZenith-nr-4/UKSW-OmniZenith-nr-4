@@ -47,8 +47,9 @@ public class StarField : MonoBehaviour
             Vector3 right = Vector3.Cross(up, dir).normalized;
             Vector3 realUp = Vector3.Cross(dir, right);
 
-            float sizeDeg = 0.3f;
-            float brightness = 1f;
+            float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
+            float sizeDeg = Mathf.Lerp(minSizeDeg, maxSizeDeg, t);
+            float brightness = Mathf.Lerp(0.3f, 1f, t);
 
             Vector3 center = dir * radius;
             int v = i * 4;
