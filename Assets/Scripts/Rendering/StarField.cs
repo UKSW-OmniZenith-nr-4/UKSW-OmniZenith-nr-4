@@ -49,6 +49,7 @@ public class StarField : MonoBehaviour
 
             float sizeDeg = 0.3f;
             float brightness = 1f;
+            float half = radius * Mathf.Tan(sizeDeg * Mathf.Deg2Rad * 0.5f);
 
             Vector3 center = dir * radius;
             int v = i * 4;
