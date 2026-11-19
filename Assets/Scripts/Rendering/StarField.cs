@@ -59,7 +59,7 @@ public class StarField : MonoBehaviour
             vertices[v + 2] = center + right * half + realUp * half;
             vertices[v + 3] = center - right * half + realUp * half;
 
-            Color c = Color.white * brightness;
+            Color c = BVToColor(stars[i].BV) * brightness;
             c.a = 1f;
             for (int k = 0; k < 4; k++) colors[v + k] = c;
 
