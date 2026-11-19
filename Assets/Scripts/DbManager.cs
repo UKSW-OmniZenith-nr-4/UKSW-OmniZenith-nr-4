@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -125,6 +126,7 @@ public class DbManager : MonoBehaviour
             float.TryParse(Pierwsze(w, "y"), NumberStyles.Float, Inv, out float y);
             float.TryParse(Pierwsze(w, "z"), NumberStyles.Float, Inv, out float z);
             int.TryParse(Pierwsze(w, "hip"), out int hip);
+            float.TryParse(Pierwsze(w, "ci"), NumberStyles.Float, Inv, out float bv);
 
             lista.Add(new Gwiazda
             {
@@ -133,6 +135,7 @@ public class DbManager : MonoBehaviour
                 Ra = ra,
                 Dec = dec,
                 Mag = mag,
+                Bv = bv,
                 X = x,
                 Y = y,
                 Z = z

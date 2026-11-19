@@ -22,6 +22,7 @@ public class Gwiazda
     public float Ra { get; set; }       // rektascensja (godziny)
     public float Dec { get; set; }      // deklinacja (stopnie)
     [Indexed] public float Mag { get; set; }
+    public float Bv { get; set; }       // indeks barwy B-V (kolumna "ci" z HYG)
     public float X { get; set; }
     public float Y { get; set; }
     public float Z { get; set; }
