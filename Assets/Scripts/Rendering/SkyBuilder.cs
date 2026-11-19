@@ -59,7 +59,7 @@ public class SkyBuilder : MonoBehaviour
                     (float)Math.Sin(a),
                     (float)(Math.Cos(a) * Math.Cos(z))),
                 Magnitude = g.Mag,
-                BV = g.Bv
+                BV = 0.6f
             });
         }
 
