@@ -396,6 +396,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b26849da0d57446b5ade8840e20ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkyCameraController
+  minFov: 10
+  maxFov: 90
+  zoomStep: 5
+--- !u!1 &1243329723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243329725}
+  - component: {fileID: 1243329724}
+  m_Layer: 0
+  m_Name: DbManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1243329724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243329723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95168de6ef6ec44689de0eda714249c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DbManager
+  maksJasnosc: 8
+--- !u!4 &1243329725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243329723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.14175, y: 0.06813, z: 0.09406}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1351549053
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,3 +576,4 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 203844589}
   - {fileID: 1351549057}
+  - {fileID: 1243329725}
