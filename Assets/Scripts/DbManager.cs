@@ -48,6 +48,10 @@ public class DbManager : MonoBehaviour
         Debug.Log(syriusz != null
             ? "Test: znaleziono Syriusza, jasnoœæ " + syriusz.Mag
             : "Test: nie znaleziono Syriusza (sprawdŸ import HYG)");
+
+        var syriusz2 = Db.Table<Gwiazda>().Where(g => g.Hip == 32349).FirstOrDefault();
+        Debug.Log("Syriusz B-V: " + (syriusz2 != null && syriusz2.Ci.HasValue ? syriusz2.Ci.Value.ToString("0.000") : "brak") +
+                  ", gwiazd z B-V: " + Db.Table<Gwiazda>().Where(g => g.Ci != null).Count());
     }
 
     void OnDestroy()
@@ -126,6 +130,10 @@ public class DbManager : MonoBehaviour
             float.TryParse(Pierwsze(w, "z"), NumberStyles.Float, Inv, out float z);
             int.TryParse(Pierwsze(w, "hip"), out int hip);
 
+            float? ci = null;
+            if (float.TryParse(Pierwsze(w, "ci"), NumberStyles.Float, Inv, out float ciWart))
+                ci = ciWart;
+
             lista.Add(new Gwiazda
             {
                 Hip = hip,
@@ -133,6 +141,7 @@ public class DbManager : MonoBehaviour
                 Ra = ra,
                 Dec = dec,
                 Mag = mag,
+                Ci = ci,
                 X = x,
                 Y = y,
                 Z = z
