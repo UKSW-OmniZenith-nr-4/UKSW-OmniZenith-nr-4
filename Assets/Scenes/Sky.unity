@@ -393,7 +393,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961739749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82418e07925e14b4ca679b703a21e212, type: 3}
+  m_Script: {fileID: 11500000, guid: c8b26849da0d57446b5ade8840e20ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkyCameraController
 --- !u!1 &1351549053
