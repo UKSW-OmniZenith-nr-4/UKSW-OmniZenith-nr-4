@@ -2,6 +2,8 @@ using System;
 
 public static class CoordinateConverter
 {
+    const double D2R = Math.PI / 180.0;
+
     public static double JulianDate(DateTime utc)
     {
         int y = utc.Year, m = utc.Month;
@@ -17,11 +19,12 @@ public static class CoordinateConverter
         deg %= 360.0;
         return deg < 0 ? deg + 360.0 : deg;
     }
+
     public static void RaDecToAltAz(double raHours, double decDeg, double latDeg, double lonDeg,
                                     DateTime utc, out double altDeg, out double azDeg)
     {
-        const double D2R = Math.PI / 180.0;
         double jd = JulianDate(utc);
+
         double T = (jd - 2451545.0) / 36525.0;
         double zeta = (2306.2181 * T + 0.30188 * T * T + 0.017998 * T * T * T) / 3600.0 * D2R;
         double z = (2306.2181 * T + 1.09468 * T * T + 0.018203 * T * T * T) / 3600.0 * D2R;
@@ -35,17 +38,30 @@ public static class CoordinateConverter
         double ra = Math.Atan2(A, B) + z;
         double dec = Math.Asin(C);
 
+        Horizontal(ra, dec, latDeg, lonDeg, jd, out altDeg, out azDeg);
+    }
+
+    public static void EquatorialOfDateToAltAz(double raHours, double decDeg, double latDeg, double lonDeg,
+                                               DateTime utc, out double altDeg, out double azDeg)
+    {
+        Horizontal(raHours * 15.0 * D2R, decDeg * D2R, latDeg, lonDeg, JulianDate(utc), out altDeg, out azDeg);
+    }
+
+    static void Horizontal(double raRad, double decRad, double latDeg, double lonDeg, double jd,
+                           out double altDeg, out double azDeg)
+    {
         double d = jd - 2451545.0;
         double gmstHours = 18.697374558 + 24.06570982441908 * d;
         double lstDeg = Norm(gmstHours * 15.0 + lonDeg);
 
-        double H = (lstDeg * D2R) - ra;
+        double H = lstDeg * D2R - raRad;
         double lat = latDeg * D2R;
 
-        double sinAlt = Math.Sin(dec) * Math.Sin(lat) + Math.Cos(dec) * Math.Cos(lat) * Math.Cos(H);
+        double sinAlt = Math.Sin(decRad) * Math.Sin(lat) + Math.Cos(decRad) * Math.Cos(lat) * Math.Cos(H);
+        sinAlt = Math.Max(-1.0, Math.Min(1.0, sinAlt));
         altDeg = Math.Asin(sinAlt) / D2R;
 
-        double az = Math.Atan2(Math.Sin(H), Math.Cos(H) * Math.Sin(lat) - Math.Tan(dec) * Math.Cos(lat)) / D2R + 180.0;
+        double az = Math.Atan2(Math.Sin(H), Math.Cos(H) * Math.Sin(lat) - Math.Tan(decRad) * Math.Cos(lat)) / D2R + 180.0;
         azDeg = Norm(az);
     }
 }
