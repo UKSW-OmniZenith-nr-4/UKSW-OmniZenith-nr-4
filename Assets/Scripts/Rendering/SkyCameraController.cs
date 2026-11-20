@@ -5,6 +5,9 @@ public class SkyCameraController : MonoBehaviour
 {
     float yaw;
     float pitch;
+    public float minFov = 10f;
+    public float maxFov = 90f;
+    public float zoomStep = 5f;
     Camera cam;
 
     void Start()
@@ -19,6 +22,10 @@ public class SkyCameraController : MonoBehaviour
     {
         var mouse = Mouse.current;
         if (mouse == null) return;
+
+        float scroll = mouse.scroll.ReadValue().y;
+        if (Mathf.Abs(scroll) > 0.01f)
+            cam.fieldOfView = Mathf.Clamp(cam.fieldOfView - Mathf.Sign(scroll) * zoomStep, minFov, maxFov);
 
         if (mouse.leftButton.isPressed || mouse.rightButton.isPressed)
         {
