@@ -24,8 +24,8 @@ public class SkyCameraController : MonoBehaviour
         {
             Vector2 delta = mouse.delta.ReadValue();
             float degPerPixel = cam.fieldOfView / Screen.height;
-            yaw += delta.x * degPerPixel;
-            pitch -= delta.y * degPerPixel;
+            yaw -= delta.x * degPerPixel;
+            pitch += delta.y * degPerPixel;
             pitch = Mathf.Clamp(pitch, -90f, 90f);
             transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
         }
