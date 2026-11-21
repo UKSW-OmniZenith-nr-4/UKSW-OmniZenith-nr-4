@@ -59,7 +59,7 @@ public class SkyBuilder : MonoBehaviour
                     (float)Math.Sin(a),
                     (float)(Math.Cos(a) * Math.Cos(z))),
                 Magnitude = g.Mag,
-                BV = g.Ci ?? 0.6f
+                BV = 0.6f
             });
         }
         SolarSystemObjects.AddBodies(widoczne, now, latitude, longitude);
