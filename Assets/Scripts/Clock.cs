@@ -3,10 +3,10 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Wyœwietla aktualn¹ godzinê i datê z zegara systemowego w pasku na dole ekranu
+// WyÅ“wietla aktualnÂ¹ godzinÃª i datÃª z zegara systemowego w pasku na dole ekranu
 public class Clock : MonoBehaviour
 {
-    [Header("Wygl¹d paska")]
+    [Header("WyglÂ¹d paska")]
     public int wysokoscPaska = 50;
     public int rozmiarCzcionki = 26;
     public Color kolorTla = new Color(0f, 0f, 0f, 0.6f);
@@ -17,6 +17,7 @@ public class Clock : MonoBehaviour
     CultureInfo kultura;
     int ostatniaSekunda = -1;
 
+    public static Transform PasekTransform { get; private set; }
     void Awake()
     {
         try { kultura = new CultureInfo("pl-PL"); }
@@ -53,7 +54,7 @@ public class Clock : MonoBehaviour
 
     void ZbudujInterfejs()
     {
-        canvasObj = new GameObject("ZegarCanvas");
+        canvasObj = new GameObject("ClockCanvas");
         var canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
@@ -64,7 +65,7 @@ public class Clock : MonoBehaviour
 
         var pasek = new GameObject("Pasek", typeof(RectTransform), typeof(Image));
         pasek.transform.SetParent(canvasObj.transform, false);
-
+        PasekTransform = pasek.transform;
         var rt = pasek.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0f, 0f);
         rt.anchorMax = new Vector2(1f, 0f);

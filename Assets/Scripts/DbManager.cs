@@ -115,6 +115,12 @@ public class DbManager : MonoBehaviour
         Debug.Log("Zaimportowano miasta: " + lista.Count + " (ze wspó³rzêdnymi: " + zWspolrzednymi + ")");
     }
 
+    float? LiczbaLubNull(string tekst)
+    {
+        if (float.TryParse(tekst, NumberStyles.Float, Inv, out float v)) return v;
+        return null;
+    }
+
     void ImportHyg(string sciezka)
     {
         var lista = new List<Gwiazda>();
@@ -130,17 +136,25 @@ public class DbManager : MonoBehaviour
             float.TryParse(Pierwsze(w, "z"), NumberStyles.Float, Inv, out float z);
             int.TryParse(Pierwsze(w, "hip"), out int hip);
 
-            float? ci = null;
-            if (float.TryParse(Pierwsze(w, "ci"), NumberStyles.Float, Inv, out float ciWart))
-                ci = ciWart;
+            float? ci = LiczbaLubNull(Pierwsze(w, "ci"));
+            float? dist = LiczbaLubNull(Pierwsze(w, "dist"));
+            float? absmag = LiczbaLubNull(Pierwsze(w, "absmag"));
+
+            // HYG oznacza brak paralaksy bardzo du¿¹ odleg³oœci¹ (>= 100000 pc)
+            if (dist.HasValue && dist.Value >= 99999f) { dist = null; absmag = null; }
 
             lista.Add(new Gwiazda
             {
                 Hip = hip,
                 Nazwa = Pierwsze(w, "proper") ?? "",
+                Bf = Pierwsze(w, "bf") ?? "",
+                Con = Pierwsze(w, "con") ?? "",
+                Spect = Pierwsze(w, "spect") ?? "",
                 Ra = ra,
                 Dec = dec,
                 Mag = mag,
+                AbsMag = absmag,
+                Dist = dist,
                 Ci = ci,
                 X = x,
                 Y = y,
