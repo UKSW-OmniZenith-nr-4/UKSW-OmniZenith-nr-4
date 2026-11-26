@@ -3,10 +3,10 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
-// WyÅ“wietla aktualnÂ¹ godzinÃª i datÃª z zegara systemowego w pasku na dole ekranu
+// Wyœwietla aktualn¹ godzinê i datê z zegara systemowego w pasku na dole ekranu
 public class Clock : MonoBehaviour
 {
-    [Header("WyglÂ¹d paska")]
+    [Header("Wygl¹d paska")]
     public int wysokoscPaska = 50;
     public int rozmiarCzcionki = 26;
     public Color kolorTla = new Color(0f, 0f, 0f, 0.6f);
