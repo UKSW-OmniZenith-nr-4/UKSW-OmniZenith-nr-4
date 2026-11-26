@@ -64,14 +64,14 @@ public class StarField : MonoBehaviour
     public float CoreSizeDeg(float mag)
     {
         float t = Mathf.Clamp((faintMagnitude - mag) / (faintMagnitude - brightMagnitude), 0f, 1.8f);
-        return Mathf.LerpUnclamped(minSizeDeg, maxSizeDeg, t);
+        return Mathf.LerpUnclamped(minSizeDeg, maxSizeDeg, Mathf.Pow(t, 1.5f));
     }
 
     // Colour and brightness of a point, same as for a star (used by BodySprites)
     public Color PointColor(float mag, float bv)
     {
         float t = Mathf.Clamp01(Mathf.InverseLerp(faintMagnitude, brightMagnitude, mag));
-        float brightness = Mathf.Lerp(0.15f, 1f, Mathf.Pow(t, 0.85f));
+        float brightness = Mathf.Lerp(0.08f, 1f, Mathf.Pow(t, 1.3f));
         Color c = Saturate(BVToColor(bv), colorSaturation) * brightness;
         c.a = 1f;
         return c;
@@ -91,7 +91,7 @@ public class StarField : MonoBehaviour
 
             float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
             float sizeDeg = stars[i].SizeDeg > 0f ? stars[i].SizeDeg : CoreSizeDeg(stars[i].Magnitude);
-            float brightness = Mathf.Lerp(0.15f, 1f, Mathf.Pow(t, 0.85f));
+            float brightness = Mathf.Lerp(0.08f, 1f, Mathf.Pow(t, 1.3f));
 
             float half = radius * Mathf.Tan(sizeDeg * haloScale * Mathf.Deg2Rad * 0.5f);
 

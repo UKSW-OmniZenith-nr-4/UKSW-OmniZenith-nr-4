@@ -47,8 +47,11 @@ Shader "OmniZenith/Star"
                 float b = max(i.color.r, max(i.color.g, i.color.b));
                 float halo = pow(saturate(1.0 - d), _HaloPower) * _HaloStrength * b * b;
 
-                half3 coreCol = lerp(i.color.rgb, half3(b, b, b), 0.12);
-                half3 col = coreCol * core + i.color.rgb * halo;
+                // Wide extra glow only for the brightest stars (b^4)
+                float glow = pow(saturate(1.0 - d), 1.5) * _HaloStrength * 1.5 * b * b * b * b;
+
+                half3 coreCol = lerp(i.color.rgb, half3(b, b, b), 0.12 + 0.4 * b * b);
+                half3 col = coreCol * core + i.color.rgb * (halo + glow);
                 return half4(col, 1);
             }
             ENDHLSL
