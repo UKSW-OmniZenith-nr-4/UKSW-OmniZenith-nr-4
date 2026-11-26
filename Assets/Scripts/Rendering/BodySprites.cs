@@ -77,11 +77,11 @@ public class BodySprites : MonoBehaviour
         {
             Make("Sun",     0.25f, false, 999f, 998f),
             Make("Moon",    0.90f, false, 999f, 998f, true),
-            Make("Mercury", 0.90f, true,  35f,  20f),
-            Make("Venus",   0.90f, true,  35f,  20f),
-            Make("Mars",    0.90f, true,  35f,  20f),
-            Make("Jupiter", 0.90f, true,  35f,  20f),
-            Make("Saturn",  0.42f, true,  35f,  20f),
+            Make("Mercury", 0.90f, true,  999f, 998f),
+            Make("Venus",   0.90f, true,  999f, 998f),
+            Make("Mars",    0.90f, true,  999f, 998f),
+            Make("Jupiter", 0.90f, true,  999f, 998f),
+            Make("Saturn",  0.42f, true,  999f, 998f),
         };
     }
 

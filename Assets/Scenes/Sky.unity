@@ -832,14 +832,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BodySprites
   radius: 99
-  planetEnlarge: 100
+  planetEnlarge: 230
   minOverPoint: 1.15
   entries:
   - name: Sun
     texture: {fileID: 0}
     discFraction: 0.25
     enlarge: 0
-    sizeMultiplier: 3
+    sizeMultiplier: 1
     showBelowFov: 999
     fullBelowFov: 998
     usePhase: 0
@@ -856,7 +856,7 @@ MonoBehaviour:
     texture: {fileID: 0}
     discFraction: 0.9
     enlarge: 0
-    sizeMultiplier: 3
+    sizeMultiplier: 1
     showBelowFov: 999
     fullBelowFov: 998
     usePhase: 1
@@ -874,8 +874,8 @@ MonoBehaviour:
     discFraction: 0.9
     enlarge: 1
     sizeMultiplier: 1
-    showBelowFov: 35
-    fullBelowFov: 20
+    showBelowFov: 999
+    fullBelowFov: 998
     usePhase: 0
     dir: {x: 0, y: 0, z: 0}
     alt: 0
@@ -891,8 +891,8 @@ MonoBehaviour:
     discFraction: 0.9
     enlarge: 1
     sizeMultiplier: 1
-    showBelowFov: 35
-    fullBelowFov: 20
+    showBelowFov: 999
+    fullBelowFov: 998
     usePhase: 0
     dir: {x: 0, y: 0, z: 0}
     alt: 0
@@ -908,8 +908,8 @@ MonoBehaviour:
     discFraction: 0.9
     enlarge: 1
     sizeMultiplier: 1
-    showBelowFov: 35
-    fullBelowFov: 20
+    showBelowFov: 999
+    fullBelowFov: 998
     usePhase: 0
     dir: {x: 0, y: 0, z: 0}
     alt: 0
@@ -925,8 +925,8 @@ MonoBehaviour:
     discFraction: 0.9
     enlarge: 1
     sizeMultiplier: 1
-    showBelowFov: 35
-    fullBelowFov: 20
+    showBelowFov: 999
+    fullBelowFov: 998
     usePhase: 0
     dir: {x: 0, y: 0, z: 0}
     alt: 0
@@ -942,8 +942,8 @@ MonoBehaviour:
     discFraction: 0.42
     enlarge: 1
     sizeMultiplier: 1
-    showBelowFov: 35
-    fullBelowFov: 20
+    showBelowFov: 999
+    fullBelowFov: 998
     usePhase: 0
     dir: {x: 0, y: 0, z: 0}
     alt: 0
@@ -1097,7 +1097,6 @@ MonoBehaviour:
   latitude: 52.23
   longitude: 21.01
   maksMag: 6.5
-  hoursOffset: 20
 --- !u!1 &1370264517
 GameObject:
   m_ObjectHideFlags: 0
