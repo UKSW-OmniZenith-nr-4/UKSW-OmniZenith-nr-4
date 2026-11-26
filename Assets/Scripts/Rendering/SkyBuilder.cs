@@ -63,7 +63,11 @@ public class SkyBuilder : MonoBehaviour
                 BV = g.Ci ?? 0.6f
             });
         }
+<<<<<<< Updated upstream
 
+=======
+        SolarSystemObjects.AddBodies(widoczne, now, latitude, longitude);
+>>>>>>> Stashed changes
         Debug.Log($"SkyBuilder: gwiazd w bazie {gwiazdy.Count}, nad horyzontem {widoczne.Count}");
         GetComponent<StarField>().Build(widoczne.ToArray());
     }
