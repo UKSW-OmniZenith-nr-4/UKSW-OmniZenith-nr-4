@@ -5,6 +5,7 @@ public struct StarVisual
     public Vector3 Direction;
     public float Magnitude;
     public float BV;
+    public float SizeDeg;
 }
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -50,6 +51,7 @@ public class StarField : MonoBehaviour
             float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
             float sizeDeg = Mathf.Lerp(minSizeDeg, maxSizeDeg, t);
             float brightness = Mathf.Lerp(0.3f, 1f, t);
+            if (stars[i].SizeDeg > 0f) sizeDeg = stars[i].SizeDeg;
             float half = radius * Mathf.Tan(sizeDeg * Mathf.Deg2Rad * 0.5f);
 
             Vector3 center = dir * radius;
