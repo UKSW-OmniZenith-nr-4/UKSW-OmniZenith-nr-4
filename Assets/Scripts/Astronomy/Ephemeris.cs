@@ -98,6 +98,53 @@ public static class Ephemeris
         ToRaDec(px - ex, py - ey, pz - ez, EpsJ2000, out raHours, out decDeg);
     }
 
+    // Apparent magnitude and angular disc diameter [deg] of a planet (Astronomical Almanac formulas)
+    public static void PlanetAppearance(Body b, double jdTT, out double mag, out double diameterDeg)
+    {
+        double T = (jdTT - 2451545.0) / 36525.0;
+        Helio(Index(b), T, out double px, out double py, out double pz);
+        Helio(EarthIdx, T, out double ex, out double ey, out double ez);
+
+        double r = Math.Sqrt(px * px + py * py + pz * pz);
+        double R = Math.Sqrt(ex * ex + ey * ey + ez * ez);
+        double gx = px - ex, gy = py - ey, gz = pz - ez;
+        double d = Math.Sqrt(gx * gx + gy * gy + gz * gz);
+
+        double cosI = (r * r + d * d - R * R) / (2.0 * r * d);
+        double i = Math.Acos(Math.Max(-1.0, Math.Min(1.0, cosI))) / D2R; // phase angle
+        double lg = 5.0 * Math.Log10(r * d);
+
+        double d0; // diameter in arcseconds at 1 AU
+        switch (b)
+        {
+            case Body.Mercury:
+                mag = -0.42 + lg + 0.0380 * i - 0.000273 * i * i + 0.000002 * i * i * i;
+                d0 = 6.74; break;
+            case Body.Venus:
+                mag = -4.40 + lg + 0.0009 * i + 0.000239 * i * i - 0.00000065 * i * i * i;
+                d0 = 16.69; break;
+            case Body.Mars:
+                mag = -1.52 + lg + 0.016 * i;
+                d0 = 9.35; break;
+            case Body.Jupiter:
+                mag = -9.40 + lg + 0.005 * i;
+                d0 = 197.1; break;
+            default: // Saturn (with ring tilt correction)
+            {
+                double ye = Math.Cos(EpsJ2000) * gy - Math.Sin(EpsJ2000) * gz;
+                double ze = Math.Sin(EpsJ2000) * gy + Math.Cos(EpsJ2000) * gz;
+                double ra = Math.Atan2(ye, gx);
+                double dec = Math.Asin(ze / d);
+                double raP = 40.589 * D2R, decP = 83.537 * D2R; // Saturn pole (J2000)
+                double sinB = -(Math.Sin(decP) * Math.Sin(dec) + Math.Cos(decP) * Math.Cos(dec) * Math.Cos(raP - ra));
+                double sb = Math.Abs(sinB);
+                mag = -8.88 + lg - 2.60 * sb + 1.25 * sb * sb;
+                d0 = 166.2; break;
+            }
+        }
+        diameterDeg = d0 / d / 3600.0;
+    }
+
     static double Rev(double x)
     {
         x %= 360.0;
