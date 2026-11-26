@@ -10,6 +10,7 @@ public class SkyBuilder : MonoBehaviour
     public double latitude = 52.23;
     public double longitude = 21.01;
     public float maksMag = 6.5f;
+    public float hoursOffset = 0f;
 
     void Awake()
     {
@@ -41,7 +42,7 @@ public class SkyBuilder : MonoBehaviour
             .Where(g => g.Mag <= maks && g.Mag > -20f)
             .ToList();
 
-        DateTime now = DateTime.UtcNow;
+        DateTime now = DateTime.UtcNow.AddHours(hoursOffset);
         var widoczne = new List<StarVisual>(gwiazdy.Count);
 
         foreach (var g in gwiazdy)
