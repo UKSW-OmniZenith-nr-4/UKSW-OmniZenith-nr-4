@@ -68,8 +68,9 @@ Shader "OmniZenith/BodySprite"
                 float core = 1.0 - smoothstep(_CoreSize - aa, _CoreSize + aa, ds);
                 float b = max(_Tint.r, max(_Tint.g, _Tint.b));
                 float halo = pow(saturate(1.0 - ds), _HaloPower) * _HaloStrength * b * b;
-                float3 coreCol = lerp(_Tint.rgb, float3(b, b, b), 0.12);
-                float3 star = coreCol * core + _Tint.rgb * halo;
+                float glow = pow(saturate(1.0 - ds), 1.5) * _HaloStrength * 1.5 * b * b * b * b;
+                float3 coreCol = lerp(_Tint.rgb, float3(b, b, b), 0.12 + 0.4 * b * b);
+                float3 star = coreCol * core + _Tint.rgb * (halo + glow);
 
                 // picture look (gets sharper as we zoom in)
                 float2 pT = p * _TexScale;
