@@ -433,8 +433,14 @@ MonoBehaviour:
   useRandomTest: 1
   randomStarCount: 10000
   radius: 100
+<<<<<<< Updated upstream
   minSizeDeg: 0.15
   maxSizeDeg: 0.9
+=======
+  minSizeDeg: 0.04
+  maxSizeDeg: 0.2
+  haloScale: 6
+>>>>>>> Stashed changes
   faintMagnitude: 6.5
   brightMagnitude: -1.5
 --- !u!23 &1351549055

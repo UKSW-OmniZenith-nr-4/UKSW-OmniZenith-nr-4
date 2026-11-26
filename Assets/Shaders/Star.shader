@@ -28,10 +28,23 @@ Shader "OmniZenith/Star"
 
             half4 frag(Varyings IN) : SV_Target
             {
+<<<<<<< Updated upstream
                 float d = length(IN.uv - 0.5) * 2.0;
                 float a = saturate(1.0 - d);
                 a = a * a;
                 return half4(IN.color.rgb * a, 1);
+=======
+                float d = length(i.uv - 0.5) * 2.0;
+                float aa = max(fwidth(d), 0.0001);
+                float core = 1.0 - smoothstep(_CoreSize - aa, _CoreSize + aa, d);
+
+                float b = max(i.color.r, max(i.color.g, i.color.b));
+                float halo = pow(saturate(1.0 - d), _HaloPower) * _HaloStrength * b * b;
+
+                half3 coreCol = lerp(i.color.rgb, half3(b, b, b), 0.12);
+                half3 col = coreCol * core + i.color.rgb * halo;
+                return half4(col, 1);
+>>>>>>> Stashed changes
             }
             ENDHLSL
         }

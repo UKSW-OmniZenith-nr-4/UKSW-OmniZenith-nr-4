@@ -34,9 +34,31 @@ public class StarField : MonoBehaviour
 
     public void Build(StarVisual[] stars)
     {
+<<<<<<< Updated upstream
         int n = stars.Length;
         var vertices = new Vector3[n * 4];
         var colors = new Color[n * 4];
+=======
+        float t = Mathf.Clamp((faintMagnitude - mag) / (faintMagnitude - brightMagnitude), 0f, 1.8f);
+        return Mathf.LerpUnclamped(minSizeDeg, maxSizeDeg, t);
+    }
+
+    // Colour and brightness of a point, same as for a star (used by BodySprites)
+    public Color PointColor(float mag, float bv)
+    {
+        float t = Mathf.Clamp01(Mathf.InverseLerp(faintMagnitude, brightMagnitude, mag));
+        float brightness = Mathf.Lerp(0.15f, 1f, Mathf.Pow(t, 0.85f));
+        Color c = Saturate(BVToColor(bv), colorSaturation) * brightness;
+        c.a = 1f;
+        return c;
+    }
+
+    public void Build(IList<StarVisual> stars)
+    {
+        int n = stars.Count;
+        var verts = new Vector3[n * 4];
+        var cols = new Color[n * 4];
+>>>>>>> Stashed changes
         var uvs = new Vector2[n * 4];
         var triangles = new int[n * 6];
 
@@ -48,9 +70,14 @@ public class StarField : MonoBehaviour
             Vector3 realUp = Vector3.Cross(dir, right);
 
             float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
+<<<<<<< Updated upstream
             float sizeDeg = Mathf.Lerp(minSizeDeg, maxSizeDeg, t);
             float brightness = Mathf.Lerp(0.3f, 1f, t);
             float half = radius * Mathf.Tan(sizeDeg * Mathf.Deg2Rad * 0.5f);
+=======
+            float sizeDeg = stars[i].SizeDeg > 0f ? stars[i].SizeDeg : CoreSizeDeg(stars[i].Magnitude);
+            float brightness = Mathf.Lerp(0.15f, 1f, Mathf.Pow(t, 0.85f));
+>>>>>>> Stashed changes
 
             Vector3 center = dir * radius;
             int v = i * 4;

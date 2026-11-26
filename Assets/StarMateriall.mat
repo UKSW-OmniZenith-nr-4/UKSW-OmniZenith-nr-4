@@ -103,6 +103,10 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+<<<<<<< Updated upstream
+=======
+    - _CoreSize: 0.417
+>>>>>>> Stashed changes
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -113,6 +117,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+<<<<<<< Updated upstream
+=======
+    - _HaloPower: 1
+    - _HaloStrength: 1.68
+>>>>>>> Stashed changes
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
