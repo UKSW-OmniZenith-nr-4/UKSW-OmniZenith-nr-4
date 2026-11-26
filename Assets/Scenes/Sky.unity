@@ -680,7 +680,7 @@ MonoBehaviour:
   image: {fileID: 2800000, guid: daaf2e37150fb4447b45907b40dd3b15, type: 3}
   radius: 90
   bottomDeg: -3
-  topDeg: 3
+  topDeg: 5
   segments: 360
   autoRepeat: 1
   repeatX: 6
