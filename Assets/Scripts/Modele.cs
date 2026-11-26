@@ -19,10 +19,15 @@ public class Gwiazda
     [PrimaryKey, AutoIncrement] public int Id { get; set; }
     [Indexed] public int Hip { get; set; }
     public string Nazwa { get; set; }   // kolumna "proper" z HYG
+    public string Bf { get; set; }      // oznaczenie Bayera/Flamsteeda, np. "9Alp CMa"
+    public string Con { get; set; }     // skrót gwiazdozbioru, np. "CMa"
+    public string Spect { get; set; }   // typ widmowy, np. "A0m..."
     public float Ra { get; set; }       // rektascensja (godziny)
     public float Dec { get; set; }      // deklinacja (stopnie)
     [Indexed] public float Mag { get; set; }
-    public float? Ci { get; set; }      // wskaŸnik barwy B-V (kolumna "ci" z HYG), null gdy brak danych
+    public float? AbsMag { get; set; }  // jasnoœæ absolutna (null gdy brak odleg³oœci)
+    public float? Dist { get; set; }    // odleg³oœæ w parsekach (null gdy nieznana)
+    public float? Ci { get; set; }      // B-V
     public float X { get; set; }
     public float Y { get; set; }
     public float Z { get; set; }
