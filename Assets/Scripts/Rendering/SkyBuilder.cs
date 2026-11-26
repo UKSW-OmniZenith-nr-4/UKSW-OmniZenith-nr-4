@@ -10,7 +10,6 @@ public class SkyBuilder : MonoBehaviour
     public double latitude = 52.23;
     public double longitude = 21.01;
     public float maksMag = 6.5f;
-    public float hoursOffset = 0f;
 
     void Awake()
     {
@@ -42,7 +41,7 @@ public class SkyBuilder : MonoBehaviour
             .Where(g => g.Mag <= maks && g.Mag > -20f)
             .ToList();
 
-        DateTime now = DateTime.UtcNow.AddHours(hoursOffset);
+        DateTime now = DateTime.UtcNow;
         var widoczne = new List<StarVisual>(gwiazdy.Count);
 
         foreach (var g in gwiazdy)
@@ -63,11 +62,7 @@ public class SkyBuilder : MonoBehaviour
                 BV = g.Ci ?? 0.6f
             });
         }
-<<<<<<< Updated upstream
-
-=======
         SolarSystemObjects.AddBodies(widoczne, now, latitude, longitude);
->>>>>>> Stashed changes
         Debug.Log($"SkyBuilder: gwiazd w bazie {gwiazdy.Count}, nad horyzontem {widoczne.Count}");
         GetComponent<StarField>().Build(widoczne.ToArray());
     }
