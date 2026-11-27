@@ -44,14 +44,19 @@ Shader "OmniZenith/Star"
                 float aa = max(fwidth(d), 0.0001);
                 float core = 1.0 - smoothstep(_CoreSize - aa, _CoreSize + aa, d);
 
-                float b = max(i.color.r, max(i.color.g, i.color.b));
-                float halo = pow(saturate(1.0 - d), _HaloPower) * _HaloStrength * b * b;
+                // alpha = relative brightness 0..1, rgb = pure hue at full strength
+                float br = i.color.a;
+                half3 hue = i.color.rgb;
 
-                // Wide extra glow only for the brightest stars (b^4)
-                float glow = pow(saturate(1.0 - d), 1.5) * _HaloStrength * 1.5 * b * b * b * b;
+                // Core: ALWAYS powerful (small and sharp), nearly white
+                half3 coreCol = lerp(hue, half3(1, 1, 1), 0.03 + 0.3 * br * br) * (0.18 + 0.82 * br);
 
-                half3 coreCol = lerp(i.color.rgb, half3(b, b, b), 0.12 + 0.4 * b * b);
-                half3 col = coreCol * core + i.color.rgb * (halo + glow);
+                // Halo: faint stars still glow clearly, bright ones glow much more
+                float f = saturate(1.0 - d);
+                float halo = pow(f, _HaloPower) * _HaloStrength * (0.05 + 0.95 * br * br);
+                float glow = pow(f, 1.6) * _HaloStrength * 2.0 * br * br * br * br;
+
+                half3 col = coreCol * core + hue * (halo + glow);
                 return half4(col, 1);
             }
             ENDHLSL
