@@ -16,12 +16,12 @@ public class StarField : MonoBehaviour
     public static StarField Instance;
 
     public float radius = 100f;
-    public float minSizeDeg = 0.05f;
-    public float maxSizeDeg = 0.18f;
-    public float haloScale = 4f;
+    public float minSizeDeg = 0.04f;
+    public float maxSizeDeg = 0.30f;
+    public float haloScale = 10f;
     public float faintMagnitude = 6.5f;
     public float brightMagnitude = -1.5f;
-    public float colorSaturation = 1.8f;
+    public float colorSaturation = 3.5f;
     public bool useRandomTest = false;
 
     Mesh mesh;
@@ -64,7 +64,7 @@ public class StarField : MonoBehaviour
     public float CoreSizeDeg(float mag)
     {
         float t = Mathf.Clamp((faintMagnitude - mag) / (faintMagnitude - brightMagnitude), 0f, 1.8f);
-        return Mathf.LerpUnclamped(minSizeDeg, maxSizeDeg, Mathf.Pow(t, 1.5f));
+        return Mathf.LerpUnclamped(minSizeDeg, maxSizeDeg, Mathf.Pow(t, 0.8f));
     }
 
     // Colour and brightness of a point, same as for a star (used by BodySprites)
@@ -91,7 +91,7 @@ public class StarField : MonoBehaviour
 
             float t = Mathf.InverseLerp(faintMagnitude, brightMagnitude, stars[i].Magnitude);
             float sizeDeg = stars[i].SizeDeg > 0f ? stars[i].SizeDeg : CoreSizeDeg(stars[i].Magnitude);
-            float brightness = Mathf.Lerp(0.08f, 1f, Mathf.Pow(t, 1.3f));
+            float brightness = Mathf.Pow(t, 0.8f);
 
             float half = radius * Mathf.Tan(sizeDeg * haloScale * Mathf.Deg2Rad * 0.5f);
 
@@ -111,8 +111,10 @@ public class StarField : MonoBehaviour
             uvs[v + 2] = new Vector2(1, 1);
             uvs[v + 3] = new Vector2(0, 1);
 
-            Color col = Saturate(BVToColor(stars[i].BV), colorSaturation) * brightness;
-            col.a = 1f;
+            Color col = Saturate(BVToColor(stars[i].BV), colorSaturation);
+            float m = Mathf.Max(col.r, Mathf.Max(col.g, col.b));
+            if (m > 0.0001f) col /= m;
+            col.a = brightness;
             cols[v + 0] = cols[v + 1] = cols[v + 2] = cols[v + 3] = col;
 
             int k = i * 6;

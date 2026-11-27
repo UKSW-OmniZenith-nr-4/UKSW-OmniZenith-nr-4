@@ -90,5 +90,7 @@ public class SkyBuilder : MonoBehaviour
         SolarSystemObjects.AddBodies(widoczne, now, latitude, longitude);
         Debug.Log($"SkyBuilder: gwiazd w bazie {gwiazdy.Count}, nad horyzontem {widoczne.Count}");
         GetComponent<StarField>().Build(widoczne.ToArray());
+        var cl = FindFirstObjectByType<ConstellationLines>();
+        if (cl != null) cl.Build(dbm, latitude, longitude, now);
     }
 }
