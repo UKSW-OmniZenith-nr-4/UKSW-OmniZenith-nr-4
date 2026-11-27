@@ -18,6 +18,21 @@ public class SkyBuilder : MonoBehaviour
 
     void Start()
     {
+        PrzeliczNiebo();
+    }
+
+    void OnEnable()
+    {
+        City.Zmieniona += PrzeliczNiebo;
+    }
+
+    void OnDisable()
+    {
+        City.Zmieniona -= PrzeliczNiebo;    
+    }
+
+    void PrzeliczNiebo()
+    {
         var dbm = FindFirstObjectByType<DbManager>();
         if (dbm == null || dbm.Db == null)
         {
@@ -25,18 +40,28 @@ public class SkyBuilder : MonoBehaviour
             return;
         }
 
-        string nazwaMiasta = miasto;
-        var m = dbm.Db.Table<Miasto>()
-            .Where(x => x.Nazwa == nazwaMiasta && x.MaWspolrzedne)
-            .FirstOrDefault();
-        if (m != null)
+        if (City.Ustawiona)
         {
-            latitude = m.Lat;
-            longitude = m.Lon;
+            miasto = City.Nazwa;
+            latitude = City.Lat;
+            longitude = City.Lon;
         }
-        Debug.Log($"SkyBuilder: {miasto} lat={latitude} lon={longitude}" + (m == null ? " (domyslne)" : ""));
+        else
+        {
+            string nazwaMiasta = miasto;
+            var m = dbm.Db.Table<Miasto>()
+                .Where(x => x.Nazwa == nazwaMiasta && x.MaWspolrzedne)
+                .FirstOrDefault();
+            if (m != null)
+            {
+                latitude = m.Lat;
+                longitude = m.Lon;
+            }
+        }
 
-        float maks = maksMag;
+        Debug.Log($"SkyBuilder: {miasto} lat={latitude} lon={longitude}");
+
+            float maks = maksMag;
         var gwiazdy = dbm.Db.Table<Gwiazda>()
             .Where(g => g.Mag <= maks && g.Mag > -20f)
             .ToList();
